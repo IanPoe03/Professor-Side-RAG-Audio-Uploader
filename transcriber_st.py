@@ -20,7 +20,7 @@ def transcribe_audio(file):
     try:
         response = client.audio.transcriptions.create(
             model="whisper-1",
-            api_key = OPENAI_API_KEY,
+            openai_api_key = OPENAI_API_KEY,
             file=file
         )
         return response.text
@@ -47,7 +47,7 @@ with st.sidebar:
     OPENAI_API_KEY = st.text_input("Enter OpenAI API Key", key="api_key", type="password")
     if OPENAI_API_KEY:
         st.write("Successfully Applied OpenAI API Key")
-    client = OpenAI(openai_api_key = OPENAI_API_KEY)
+    client = OpenAI()
 
 with st.sidebar:
        # File uploader allows user to add their own audio file
