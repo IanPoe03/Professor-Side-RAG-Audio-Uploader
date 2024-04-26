@@ -49,7 +49,6 @@ with st.sidebar:
         st.write("Successfully Applied OpenAI API Key")
     client = OpenAI(api_key=OPENAI_API_KEY)
 
-)
 
 with st.sidebar:
        # File uploader allows user to add their own audio file
