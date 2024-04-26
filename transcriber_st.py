@@ -18,7 +18,7 @@ st.write("This tool allows you to upload an audio file (currently set to .wav) w
 # Initialize OpenAI client with your API key
 def transcribe_audio(file):
     try:
-        response = OpenAI.audio.transcriptions.create(
+        response = openai.audio.transcriptions.create(
             model="whisper-1",
             openai_api_key = OPENAI_API_KEY,
             file=file
