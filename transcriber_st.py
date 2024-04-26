@@ -61,6 +61,7 @@ with st.sidebar:
                 # Show a message while processing
                 with st.spinner('Transcribing audio...'):
                     text = transcribe_audio(uploaded_file)
+                    st.write('transcribed')
                     vectordb = ingest(text)
                     llm = ChatOpenAI(temperature=0.7, model_name="gpt-4-turbo", verbose=False, openai_api_key = OPENAI_API_KEY)
                     embeddings = OpenAIEmbeddings(openai_api_key = OPENAI_API_KEY)
