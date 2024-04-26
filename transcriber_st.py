@@ -55,7 +55,7 @@ with st.sidebar:
         # Display the file details
         st.write("Filename:", uploaded_file.name)
         
-       if 'text' not in st.session_state:
+        if 'text' not in st.session_state:
             # Process the file with Whisper
             if st.button("Transcribe Audio"):
                 # Show a message while processing
@@ -78,9 +78,6 @@ with st.sidebar:
             else:
                 st.write("Click the button to transcribe.")
 
-
-            
-          
 
 
 # Set up chat interface - conversation between an assistant and a user
