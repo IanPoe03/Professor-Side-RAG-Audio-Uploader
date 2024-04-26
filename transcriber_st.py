@@ -20,6 +20,7 @@ def transcribe_audio(file):
     try:
         response = openai.audio.transcriptions.create(
             model="whisper-1",
+            openai_api_key = OPENAI_API_KEY,
             file=file
         )
         return response.text
