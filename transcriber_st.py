@@ -28,7 +28,7 @@ def transcribe_audio(file):
 
 def ingest(file_text):
     chunker = CharacterTextSplitter(chunk_size = 512, chunk_overlap = 128)
-    embeddings = OpenAIEmbeddings()
+    embeddings = OpenAIEmbeddings(openai_api_key = OPENAI_API_KEY)
     chunked_contents = chunker.split_text(file_text)
     vectordb = Chroma.from_texts(texts = chunked_contents, embedding = embeddings)
     return vectordb
