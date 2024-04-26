@@ -55,27 +55,29 @@ with st.sidebar:
         # Display the file details
         st.write("Filename:", uploaded_file.name)
         
-        # Process the file with Whisper
-        if st.button("Transcribe Audio"):
-            # Show a message while processing
-            with st.spinner('Transcribing audio...'):
-                text = transcribe_audio(uploaded_file)
-                vectordb = ingest(text)
-                llm = ChatOpenAI(temperature=0.7, model_name="gpt-4-turbo", verbose=False, openai_api_key = OPENAI_API_KEY)
-                embeddings = OpenAIEmbeddings(openai_api_key = OPENAI_API_KEY)
-                retriever = vectordb.as_retriever(search_type = "similarity", search_kwargs={"k": 3})
-                if 'conversation_buf' not in st.session_state:
-                    st.session_state.conversation_buf = RetrievalQA.from_chain_type(
-                        llm=llm, 
-                        memory = ConversationBufferMemory(),
-                        chain_type='stuff', 
-                        retriever = retriever, 
-                        verbose = False
-                    )
-            st.success("Transcription + Embedding Completed")
-           # st.text_area("Transcription:", value=text, height=300)
-        else:
-            st.write("Click the button to transcribe.")
+       if 'text' not in st.session_state:
+            # Process the file with Whisper
+            if st.button("Transcribe Audio"):
+                # Show a message while processing
+                with st.spinner('Transcribing audio...'):
+                    text = transcribe_audio(uploaded_file)
+                    vectordb = ingest(text)
+                    llm = ChatOpenAI(temperature=0.7, model_name="gpt-4-turbo", verbose=False, openai_api_key = OPENAI_API_KEY)
+                    embeddings = OpenAIEmbeddings(openai_api_key = OPENAI_API_KEY)
+                    retriever = vectordb.as_retriever(search_type = "similarity", search_kwargs={"k": 3})
+                    if 'conversation_buf' not in st.session_state:
+                        st.session_state.conversation_buf = RetrievalQA.from_chain_type(
+                            llm=llm, 
+                            memory = ConversationBufferMemory(),
+                            chain_type='stuff', 
+                            retriever = retriever, 
+                            verbose = False
+                        )
+                st.success("Transcription + Embedding Completed")
+            # st.text_area("Transcription:", value=text, height=300)
+            else:
+                st.write("Click the button to transcribe.")
+
 
             
           
